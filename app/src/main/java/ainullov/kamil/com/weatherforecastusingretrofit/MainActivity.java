@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemInAdapterList = new ArrayList<>();
-//        adapter = new WeatherAdapter(this, itemInAdapterList);
-//        recyclerView.setAdapter(adapter);
+        adapter = new WeatherAdapter(this, itemInAdapterList);
+        recyclerView.setAdapter(adapter);
     }
 
     public void getWeather() {
@@ -71,15 +71,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String cityName = etPutCity.getText().toString();
         String key = WeatherAPI.KEY;
 
-        Log.d(TAG, "OK");
+        Log.d(TAG, "Начало вызова");
 
         Call<WeatherDay> callToday = api.getToday(cityName, units, key);
         callToday.enqueue(new Callback<WeatherDay>() {
             @Override
             public void onResponse(Call<WeatherDay> call, Response<WeatherDay> response) {
                 Log.e(TAG, "onResponse");
-                WeatherDay data = response.body();
                 Log.d(TAG, response.toString());
+                WeatherDay data = response.body();
                 if (response.isSuccessful()) {
                     tvTemp.setText("" + data.main.temp);
                     tvDesc.setText("" + data.weather.get(0).description);
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call<WeatherDay> call, Throwable t) {
                 Log.e(TAG, "onFailure");
-                Log.e(TAG, t.toString());
             }
         });
 
@@ -108,55 +107,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "onResponse");
                 WeatherForecast data = response.body();
                 Log.d(TAG, response.toString());
-                Log.d(TAG, "--------------------------------------");
                 Log.d(TAG, data.toString());
 
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "SUCCESSFUL");
-                    SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E, MM dd, hh:mm");
+                    SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E, MM dd, HH:mm");
 
                     for (int i = 0; i < data.getItems().size(); i++) {
 
-                        //Дата и время: Вс, 08 19, 09:00
+                        // Параметры для айтема в адаптере
                         String dayOfWeeki = formatDayOfWeek.format(data.getItems().get(i).dt * 1000);
-                        Log.d(TAG, " Дата и время: ! " + dayOfWeeki);
-
-                        //Описание: Clear Sky
                         String desci = data.getItems().get(i).weather.get(0).description;
-                        Log.d(TAG, " Описание: ! " + desci);
-
-                        //Температура: 19.2
                         float tempi = data.getItems().get(i).main.temp;
-                        Log.d(TAG, " Температура : ! " + tempi);
-
-                        //Иконка: Красивая картинка
                         String iconi = data.getItems().get(i).getIconUrl();
-                        Log.d(TAG, " Иконка: ! " + iconi);
-
-//                        String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
-//                        String yourDateString = "2018-08-17 12:00:00";
-//                        DateFormat formatter = new SimpleDateFormat(DEFAULT_PATTERN);
-//                        try {
-//                            Date myDate = formatter.parse(yourDateString);
-//                            Log.d(TAG, myDate.toString() + " !!!!! ");
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-
 
                         itemInAdapterList.add(new ItemInWeatherAdapter(dayOfWeeki, desci, iconi, tempi));
                     }
+                    adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onFailure(Call<WeatherForecast> call, Throwable t) {
                 Log.e(TAG, "onFailure");
-                Log.e(TAG, t.toString());
             }
         });
-
 
     }
 
@@ -164,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnGet:
+                itemInAdapterList.clear();
                 getWeather();
         }
     }

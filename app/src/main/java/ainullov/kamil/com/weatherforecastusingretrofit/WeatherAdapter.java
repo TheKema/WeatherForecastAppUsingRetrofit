@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
@@ -31,9 +33,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
         holder.tvItemDate.setText(itemInWeatherAdapters.get(position).getDate());
-        holder.tvItemTemp.setText((int) itemInWeatherAdapters.get(position).getTemp());
+        holder.tvItemTemp.setText(""+(int) itemInWeatherAdapters.get(position).getTemp());
         holder.tvItemDesc.setText(itemInWeatherAdapters.get(position).getDesc());
-//        holder.ivItemIcon.set("Reposts "+itemInAdapters.get(position).);
+        // получение контекста getContext
+        Glide.with(holder.itemView.getContext()).load(itemInWeatherAdapters.get(position).getIcon()).into(holder.ivItemIcon);
+
     }
 
     @Override
