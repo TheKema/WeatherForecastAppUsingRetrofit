@@ -1,0 +1,172 @@
+package ainullov.kamil.com.weatherforecastusingretrofit;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherDay;
+import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherForecast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+// KEY - 9a829d5b59156cffd5ae083d9eb0a0d5
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    String TAG = "WEATHER";
+    TextView tvTemp;
+    TextView tvDesc;
+    TextView tvWind;
+    TextView tvPressure;
+    TextView tvHumidity;
+    ImageView ivIcon;
+    EditText etPutCity;
+    Button btnGet;
+
+    WeatherAPI.ApiInterface api;
+
+    List<ItemInWeatherAdapter> itemInAdapterList;
+    WeatherAdapter adapter;
+    RecyclerView recyclerView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tvTemp = (TextView) findViewById(R.id.tvTemp);
+        tvDesc = (TextView) findViewById(R.id.tvDesc);
+        tvWind = (TextView) findViewById(R.id.tvWind);
+        tvPressure = (TextView) findViewById(R.id.tvPressure);
+        tvHumidity = (TextView) findViewById(R.id.tvHumidity);
+        etPutCity = (EditText) findViewById(R.id.etPutCity);
+        ivIcon = (ImageView) findViewById(R.id.ivIcon);
+        btnGet = (Button) findViewById(R.id.btnGet);
+        btnGet.setOnClickListener(this);
+
+        api = WeatherAPI.getClient().create(WeatherAPI.ApiInterface.class);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        itemInAdapterList = new ArrayList<>();
+//        adapter = new WeatherAdapter(this, itemInAdapterList);
+//        recyclerView.setAdapter(adapter);
+    }
+
+    public void getWeather() {
+        String units = "metric";
+        String cityName = etPutCity.getText().toString();
+        String key = WeatherAPI.KEY;
+
+        Log.d(TAG, "OK");
+
+        Call<WeatherDay> callToday = api.getToday(cityName, units, key);
+        callToday.enqueue(new Callback<WeatherDay>() {
+            @Override
+            public void onResponse(Call<WeatherDay> call, Response<WeatherDay> response) {
+                Log.e(TAG, "onResponse");
+                WeatherDay data = response.body();
+                Log.d(TAG, response.toString());
+                if (response.isSuccessful()) {
+                    tvTemp.setText("" + data.main.temp);
+                    tvDesc.setText("" + data.weather.get(0).description);
+                    tvWind.setText("" + data.wind.speed);
+                    tvPressure.setText("" + data.main.pressure);
+                    tvHumidity.setText("" + data.main.humidity);
+                    // Работа Glide и Picasso
+                    Glide.with(MainActivity.this).load(data.getIconUrl()).into(ivIcon);
+//                    Picasso.with(MainActivity.this).load(data.getIconUrl()).into(ivImage);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherDay> call, Throwable t) {
+                Log.e(TAG, "onFailure");
+                Log.e(TAG, t.toString());
+            }
+        });
+
+
+        Call<WeatherForecast> callForecast = api.getForecast(cityName, units, key);
+        callForecast.enqueue(new Callback<WeatherForecast>() {
+            @Override
+            public void onResponse(Call<WeatherForecast> call, Response<WeatherForecast> response) {
+                Log.e(TAG, "onResponse");
+                WeatherForecast data = response.body();
+                Log.d(TAG, response.toString());
+                Log.d(TAG, "--------------------------------------");
+                Log.d(TAG, data.toString());
+
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "SUCCESSFUL");
+                    SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E, MM dd, hh:mm");
+
+                    for (int i = 0; i < data.getItems().size(); i++) {
+
+                        //Дата и время: Вс, 08 19, 09:00
+                        String dayOfWeeki = formatDayOfWeek.format(data.getItems().get(i).dt * 1000);
+                        Log.d(TAG, " Дата и время: ! " + dayOfWeeki);
+
+                        //Описание: Clear Sky
+                        String desci = data.getItems().get(i).weather.get(0).description;
+                        Log.d(TAG, " Описание: ! " + desci);
+
+                        //Температура: 19.2
+                        float tempi = data.getItems().get(i).main.temp;
+                        Log.d(TAG, " Температура : ! " + tempi);
+
+                        //Иконка: Красивая картинка
+                        String iconi = data.getItems().get(i).getIconUrl();
+                        Log.d(TAG, " Иконка: ! " + iconi);
+
+//                        String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+//                        String yourDateString = "2018-08-17 12:00:00";
+//                        DateFormat formatter = new SimpleDateFormat(DEFAULT_PATTERN);
+//                        try {
+//                            Date myDate = formatter.parse(yourDateString);
+//                            Log.d(TAG, myDate.toString() + " !!!!! ");
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//
+
+
+                        itemInAdapterList.add(new ItemInWeatherAdapter(dayOfWeeki, desci, iconi, tempi));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherForecast> call, Throwable t) {
+                Log.e(TAG, "onFailure");
+                Log.e(TAG, t.toString());
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnGet:
+                getWeather();
+        }
+    }
+
+
+}
