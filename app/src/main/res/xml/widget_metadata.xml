@@ -4,6 +4,6 @@
     android:initialLayout="@layout/widget"
     android:minHeight="40dp"
     android:minWidth="110dp"
-    android:updatePeriodMillis="250000"
+    android:updatePeriodMillis="60000"
     android:configure="ainullov.kamil.com.weatherforecastusingretrofit.widget.ConfigActivity">
 </appwidget-provider>

@@ -1,5 +1,6 @@
 package ainullov.kamil.com.weatherforecastusingretrofit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemInAdapterList = new ArrayList<>();
         adapter = new WeatherAdapter(this, itemInAdapterList);
         recyclerView.setAdapter(adapter);
+
+
+
     }
 
     public void getWeather() {
