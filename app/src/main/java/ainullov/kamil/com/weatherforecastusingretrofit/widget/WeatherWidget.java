@@ -98,7 +98,6 @@ public class WeatherWidget extends AppWidgetProvider {
                     Intent mainActivityIntent = new Intent(finalContext, ConfigActivity.class);
                     mainActivityIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
                     mainActivityIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, finalWidgetID);
-//        mainActivityIntent.putExtra("cityName", cityWidget);
                     PendingIntent pIntent = PendingIntent.getActivity(finalContext, finalWidgetID,
                             mainActivityIntent, 0);
                     widgetView.setOnClickPendingIntent(R.id.llWidget, pIntent);

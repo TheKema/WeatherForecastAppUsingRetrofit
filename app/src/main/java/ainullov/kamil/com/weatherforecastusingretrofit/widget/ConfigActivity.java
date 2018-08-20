@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import ainullov.kamil.com.weatherforecastusingretrofit.R;
-import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherDay;
 
 public class ConfigActivity extends Activity {
 

@@ -30,6 +30,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     String TAG = "WEATHER";
+    String etInstanceState = "";
     TextView tvTemp;
     TextView tvDesc;
     TextView tvWind;
@@ -68,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new WeatherAdapter(this, itemInAdapterList);
         recyclerView.setAdapter(adapter);
 
-
-
     }
 
     public void getWeather() {
@@ -87,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, response.toString());
                 WeatherDay data = response.body();
                 if (response.isSuccessful()) {
-                    tvTemp.setText((int)data.main.temp + "°");
+                    tvTemp.setText((int) data.main.temp + "°");
                     tvDesc.setText(data.weather.get(0).description);
-                    tvWind.setText((int)data.wind.speed + " m/s");
-                    tvPressure.setText((int)data.main.pressure + " hpa");
+                    tvWind.setText((int) data.wind.speed + " m/s");
+                    tvPressure.setText((int) data.main.pressure + " hpa");
                     tvHumidity.setText(data.main.humidity + " %");
                     // Работа Glide и Picasso
                     Glide.with(MainActivity.this).load(data.getIconUrl()).into(ivIcon);
@@ -112,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<WeatherForecast> call, Response<WeatherForecast> response) {
                 Log.e(TAG, "onResponse");
                 WeatherForecast data = response.body();
-                Log.d(TAG, response.toString());
-                Log.d(TAG, data.toString());
 
                 if (response.isSuccessful()) {
                     SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E,MM.dd,HH:mm", Locale.ENGLISH);
@@ -123,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // Параметры для айтема в адаптере
                         String dayOfWeeki = formatDayOfWeek.format(data.getItems().get(i).dt * 1000);
                         String desci = data.getItems().get(i).weather.get(0).description;
-                        int tempi =(int) data.getItems().get(i).main.temp;
+                        int tempi = (int) data.getItems().get(i).main.temp;
                         String iconi = data.getItems().get(i).getIconUrl();
 
                         itemInAdapterList.add(new ItemInWeatherAdapter(dayOfWeeki, desci, iconi, tempi));
@@ -147,6 +144,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 itemInAdapterList.clear();
                 getWeather();
         }
+    }
+
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("etCityName", etPutCity.getText().toString());
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        etInstanceState = savedInstanceState.getString("etCityName");
+        etPutCity.setText(etInstanceState);
+        
+        if (!etInstanceState.isEmpty()) {
+            itemInAdapterList.clear();
+            getWeather();
+        }
+
     }
 
 
