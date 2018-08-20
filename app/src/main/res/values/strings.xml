@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WeatherForecastUsingRetrofit</string>
     <string name="widget_name">Weather Forecast Widget</string>
+    <string name="_5_day_forecast">5 day weather forecast:</string>
 </resources>

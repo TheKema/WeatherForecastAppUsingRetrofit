@@ -1,12 +1,12 @@
-package ainullov.kamil.com.weatherforecastusingretrofit;
+package ainullov.kamil.com.weatherforecastusingretrofit.adapter;
 
 public class ItemInWeatherAdapter {
     private String date;
     private String desc;
     private String icon;
-    private float temp;
+    private int temp;
 
-    public ItemInWeatherAdapter(String date, String desc, String icon, float temp) {
+    public ItemInWeatherAdapter(String date, String desc, String icon, int temp) {
         this.date = date;
         this.desc = desc;
         this.icon = icon;
@@ -41,7 +41,7 @@ public class ItemInWeatherAdapter {
         return temp;
     }
 
-    public void setTemp(float temp) {
+    public void setTemp(int temp) {
         this.temp = temp;
     }
 }

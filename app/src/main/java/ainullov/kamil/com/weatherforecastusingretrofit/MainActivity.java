@@ -1,6 +1,5 @@
 package ainullov.kamil.com.weatherforecastusingretrofit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,10 @@ import com.bumptech.glide.Glide;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import ainullov.kamil.com.weatherforecastusingretrofit.adapter.ItemInWeatherAdapter;
+import ainullov.kamil.com.weatherforecastusingretrofit.adapter.WeatherAdapter;
 import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherDay;
 import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherForecast;
 import retrofit2.Call;
@@ -85,11 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, response.toString());
                 WeatherDay data = response.body();
                 if (response.isSuccessful()) {
-                    tvTemp.setText("" + data.main.temp);
-                    tvDesc.setText("" + data.weather.get(0).description);
-                    tvWind.setText("" + data.wind.speed);
-                    tvPressure.setText("" + data.main.pressure);
-                    tvHumidity.setText("" + data.main.humidity);
+                    tvTemp.setText((int)data.main.temp + "°");
+                    tvDesc.setText(data.weather.get(0).description);
+                    tvWind.setText((int)data.wind.speed + " m/s");
+                    tvPressure.setText((int)data.main.pressure + " hpa");
+                    tvHumidity.setText(data.main.humidity + " %");
                     // Работа Glide и Picasso
                     Glide.with(MainActivity.this).load(data.getIconUrl()).into(ivIcon);
 //                    Picasso.with(MainActivity.this).load(data.getIconUrl()).into(ivImage);
@@ -114,14 +116,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, data.toString());
 
                 if (response.isSuccessful()) {
-                    SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E, MM dd, HH:mm");
+                    SimpleDateFormat formatDayOfWeek = new SimpleDateFormat("E,MM.dd,HH:mm", Locale.ENGLISH);
 
                     for (int i = 0; i < data.getItems().size(); i++) {
 
                         // Параметры для айтема в адаптере
                         String dayOfWeeki = formatDayOfWeek.format(data.getItems().get(i).dt * 1000);
                         String desci = data.getItems().get(i).weather.get(0).description;
-                        float tempi = data.getItems().get(i).main.temp;
+                        int tempi =(int) data.getItems().get(i).main.temp;
                         String iconi = data.getItems().get(i).getIconUrl();
 
                         itemInAdapterList.add(new ItemInWeatherAdapter(dayOfWeeki, desci, iconi, tempi));

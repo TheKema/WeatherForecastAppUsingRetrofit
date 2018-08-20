@@ -93,7 +93,7 @@ public class WeatherWidget extends AppWidgetProvider {
 //                    widgetView.setTextViewText(R.id.tvCityWidget, cityWidget);
                     widgetView.setTextViewText(R.id.tvCityWidget, widgetText);
                     widgetView.setTextViewText(R.id.tvDescWidget, descWidget);
-                    widgetView.setTextViewText(R.id.tvTempWidget, tempWidget);
+                    widgetView.setTextViewText(R.id.tvTempWidget, tempWidget + "°");
 
                     Intent mainActivityIntent = new Intent(finalContext, ConfigActivity.class);
                     mainActivityIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
