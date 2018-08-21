@@ -4,5 +4,5 @@ Weather forecast for day and for 5 days, widget with current weather
 
 SCREENSHOTS: https://drive.google.com/open?id=1wqug0SiQ6XQbOUtCEML9C_hPZcv-kx8Y
 
-![screenshot of sample](https://drive.google.com/open?id=15M4jzuFLhNImMYs4L4stabyEz5A5cnZg)
-![screenshot of sample](https://drive.google.com/open?id=1wokYwBoi0S-SqXiNtE91fqcMLKNEk_XN)
+![screenshot of sample](https://www.dropbox.com/s/79jumg3kvxht080/mainActivityWeather.jpg?dl=0)
+![screenshot of sample](https://www.dropbox.com/s/lo0c3e4sv7lg7wv/widgetWeather.jpg?dl=0)
