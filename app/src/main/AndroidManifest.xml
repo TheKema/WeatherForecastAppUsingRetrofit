@@ -29,7 +29,7 @@
 
         <receiver
             android:name=".widget.WeatherWidget"
-            android:icon="@android:drawable/star_big_on"
+            android:icon="@drawable/weather_icon"
             android:label="@string/widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>

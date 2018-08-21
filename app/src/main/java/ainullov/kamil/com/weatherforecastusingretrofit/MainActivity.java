@@ -1,5 +1,6 @@
 package ainullov.kamil.com.weatherforecastusingretrofit;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     WeatherAdapter adapter;
     RecyclerView recyclerView;
 
+    SharedPreferences shref;
+    final String key = "Key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemInAdapterList = new ArrayList<>();
         adapter = new WeatherAdapter(this, itemInAdapterList);
         recyclerView.setAdapter(adapter);
+
+        load();
 
     }
 
@@ -161,7 +168,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             itemInAdapterList.clear();
             getWeather();
         }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        save();
+    }
+
+
+    public void load() {
+        shref = getPreferences(MODE_PRIVATE);
+        //Если впервые запускаем
+        boolean hasVisited = shref.getBoolean("hasVisited", false);
+        if (!hasVisited) {
+            SharedPreferences.Editor e = shref.edit();
+            e.putBoolean("hasVisited", true);
+            e.commit();
+        } else {
+            etInstanceState = shref.getString(key, etInstanceState);
+            etPutCity.setText(etInstanceState);
+        }
+        itemInAdapterList.clear();
+        getWeather();
+    }
+
+    public void save() {
+        shref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor = shref.edit();
+        editor.remove(key).commit();
+        editor.putString(key, etPutCity.getText().toString());
+        editor.commit();
     }
 
 
