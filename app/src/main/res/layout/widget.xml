@@ -57,30 +57,3 @@
 
 </LinearLayout>
 
-
-    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="horizontal"--><!--android:id="@+id/llWidget">-->
-
-    <!--<TextViewandroid:id--><!--="@+id/tvTempWidget"android:layout_width="wrap_content"android:layout_height="match_parent"android:layout_marginBottom="8dp"android:layout_marginStart="8dp"android:layout_marginTop="8dp"android:fontFamily="monospace"android:gravity="center"android:text="22°"android:textColor="#ffffff"android:textSize="50sp"app:layout_constraintBottom_toBottomOf="parent"app:layout_constraintStart_toStartOf="parent"app:layout_constraintTop_toTopOf="parent"--><!--/>-->
-
-    <!--<TextViewandroid:id--><!--="@+id/tvDescWidget"android:layout_width="197dp"android:layout_height="372dp"android:layout_marginStart="8dp"android:layout_marginTop="8dp"android:fontFamily="monospace"android:gravity="center"android:text="light--><!--intensity shower--><!--rain"android:textColor="#ffffff"android:textSize="15sp"app:layout_constraintStart_toEndOf="@+id/tvTempWidget"app:layout_constraintTop_toTopOf="parent">--><!--</TextView>-->
-
-    <!--<TextViewandroid:id="@+id/tvCityWidget"android:layout_width="195dp"android:layout_height="205dp"android:layout_marginBottom="8dp"android:layout_marginStart="8dp"android:layout_marginTop="8dp"android:fontFamily="monospace"android:gravity="center"android:text="Санкт-Петербург"android:textColor="#ffffff"android:textSize="10sp"app:layout_constraintBottom_toBottomOf="parent"app:layout_constraintStart_toEndOf="@+id/tvTempWidget"app:layout_constraintTop_toBottomOf="@+id/tvDescWidget"app:layout_constraintVertical_bias="1.0" />-->
-
-    <!--<ImageViewandroid:id="@+id/ivIconWidget"android:layout_width="92dp"android:layout_height="match_parent"android:layout_marginBottom="8dp"android:layout_marginEnd="8dp"android:layout_marginStart="8dp"android:layout_marginTop="8dp"app:layout_constraintBottom_toBottomOf="parent"app:layout_constraintEnd_toEndOf="parent"app:layout_constraintHorizontal_bias="0.897"app:layout_constraintStart_toEndOf="@+id/tvDescWidget"app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    <!--</android.support.constraint.ConstraintLayout>-->
-
-
-    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:orientation="horizontal"--><!--android:id="@+id/llWidget">-->
-
-    <!--<TextViewandroid:id--><!--="@+id/tvTempWidget"android:layout_width="wrap_content"android:layout_height="match_parent"android:gravity="center"android:fontFamily="monospace"android:textColor="#ffffff"android:textSize="50sp"--><!--/>-->
-
-    <!--<TextViewandroid:id--><!--="@+id/tvDescWidget"android:layout_width="140dp"android:fontFamily="monospace"android:layout_height="match_parent"android:layout_marginLeft="8dp"android:gravity="center"android:textColor="#ffffff"android:textSize="15sp">--><!--</TextView>-->
-
-    <!--<TextViewandroid:id="@+id/tvCityWidget"android:layout_width="wrap_content"android:layout_height="match_parent"android:layout_marginLeft="8dp"android:fontFamily=""android:gravity="center"android:textColor="#ffffff"android:textSize="10sp" />-->
-
-    <!--<ImageViewandroid:id="@+id/ivIconWidget"android:layout_width="wrap_content"android:layout_height="wrap_content" />-->
-
-
-    <!--</LinearLayout>-->

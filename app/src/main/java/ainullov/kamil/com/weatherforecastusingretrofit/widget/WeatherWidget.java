@@ -109,7 +109,7 @@ public class WeatherWidget extends AppWidgetProvider {
                     widgetView.setTextViewText(R.id.tvDescWidget, descWidget);
                     widgetView.setTextViewText(R.id.tvTempWidget, tempWidget + "°");
                     // Загрузка изображения, строка(ссылка в интернете)
-                    Picasso.with(context).load(data.getIconUrl()).into(widgetView, R.id.ivIconWidget, finalAppWidgetIds);
+                    Picasso.with(context).load(iconWidget).into(widgetView, R.id.ivIconWidget, finalAppWidgetIds);
 
                     Intent mainActivityIntent = new Intent(finalContext, ConfigActivity.class);
                     mainActivityIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
