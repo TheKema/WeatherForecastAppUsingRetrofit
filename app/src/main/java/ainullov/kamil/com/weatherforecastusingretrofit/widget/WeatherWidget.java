@@ -90,6 +90,12 @@ public class WeatherWidget extends AppWidgetProvider {
         String key = WeatherAPI.KEY;
         apiWidget = WeatherAPI.getClient().create(WeatherAPI.ApiInterface.class);
 
+        Intent configIntent = new Intent(finalContext, ConfigActivity.class);
+        configIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
+        configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, finalWidgetID);
+        PendingIntent pIntent = PendingIntent.getActivity(finalContext, finalWidgetID,
+                configIntent, 0);
+        widgetView.setOnClickPendingIntent(R.id.llWidget, pIntent);
 
         Call<WeatherDay> callToday = apiWidget.getToday(widgetText, units, key);
         callToday.enqueue(new Callback<WeatherDay>() {
@@ -111,12 +117,6 @@ public class WeatherWidget extends AppWidgetProvider {
                     // Загрузка изображения, строка(ссылка в интернете)
                     Picasso.with(context).load(iconWidget).into(widgetView, R.id.ivIconWidget, finalAppWidgetIds);
 
-                    Intent mainActivityIntent = new Intent(finalContext, ConfigActivity.class);
-                    mainActivityIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
-                    mainActivityIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, finalWidgetID);
-                    PendingIntent pIntent = PendingIntent.getActivity(finalContext, finalWidgetID,
-                            mainActivityIntent, 0);
-                    widgetView.setOnClickPendingIntent(R.id.llWidget, pIntent);
 
                     finalAppWidgetManager.updateAppWidget(finalWidgetID, widgetView);
                 }
