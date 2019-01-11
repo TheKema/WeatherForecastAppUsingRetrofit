@@ -37,7 +37,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.tvItemDate.setText(itemInWeatherAdapters.get(position).getDate());
         holder.tvItemTemp.setText((int) itemInWeatherAdapters.get(position).getTemp() + "°");
         holder.tvItemDesc.setText(itemInWeatherAdapters.get(position).getDesc());
-        // получение контекста getContext
+        // получение контекста
         Glide.with(holder.itemView.getContext()).load(itemInWeatherAdapters.get(position).getIcon()).into(holder.ivItemIcon);
 
     }

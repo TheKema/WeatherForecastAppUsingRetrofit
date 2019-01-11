@@ -7,21 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
-import android.os.Build;
-import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
-import ainullov.kamil.com.weatherforecastusingretrofit.MainActivity;
 import ainullov.kamil.com.weatherforecastusingretrofit.R;
-import ainullov.kamil.com.weatherforecastusingretrofit.WeatherAPI;
+import ainullov.kamil.com.weatherforecastusingretrofit.api.WeatherAPI;
 import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherDay;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,7 +102,6 @@ public class WeatherWidget extends AppWidgetProvider {
                     tempWidget = "" + (int) data.main.temp;
                     iconWidget = data.getIconUrl();
 
-//                    widgetView.setTextViewText(R.id.tvCityWidget, cityWidget);
                     widgetView.setTextViewText(R.id.tvCityWidget, widgetText);
                     widgetView.setTextViewText(R.id.tvDescWidget, descWidget);
                     widgetView.setTextViewText(R.id.tvTempWidget, tempWidget + "°");

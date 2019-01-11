@@ -1,4 +1,4 @@
-package ainullov.kamil.com.weatherforecastusingretrofit;
+package ainullov.kamil.com.weatherforecastusingretrofit.api;
 
 import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherDay;
 import ainullov.kamil.com.weatherforecastusingretrofit.pojo.WeatherForecast;
