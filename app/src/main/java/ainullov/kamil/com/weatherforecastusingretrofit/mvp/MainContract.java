@@ -17,9 +17,9 @@ public interface MainContract {
             void onFailure(Throwable t);
         }
 
-        void getWeatherDayNoticeArrayList(OnFinishedListener onFinishedListener, String units, String cityName, String key);
+        void getWeatherDayNoticeArrayList(OnFinishedListener onFinishedListener, String cityName);
 
-        void getWeatherForecastNoticeArrayList(OnFinishedListener onFinishedListener, String units, String cityName, String key);
+        void getWeatherForecastNoticeArrayList(OnFinishedListener onFinishedListener, String cityName);
 
         String load(Context context);
 
@@ -35,7 +35,7 @@ public interface MainContract {
     }
 
     interface Presenter {
-        void onGetWeatherButtonWasClicked(String units, String cityName, String key);
+        void onGetWeatherButtonWasClicked(String cityName);
 
         void load(Context context);
 

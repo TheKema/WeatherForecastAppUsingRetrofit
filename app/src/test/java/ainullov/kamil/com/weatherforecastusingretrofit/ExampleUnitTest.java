@@ -2,6 +2,8 @@ package ainullov.kamil.com.weatherforecastusingretrofit;
 
 import org.junit.Test;
 
+import ainullov.kamil.com.weatherforecastusingretrofit.activities.MainActivity;
+
 import static org.junit.Assert.*;
 
 /**

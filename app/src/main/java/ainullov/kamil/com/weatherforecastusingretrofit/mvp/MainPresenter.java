@@ -17,9 +17,9 @@ public class MainPresenter implements MainContract.Presenter, MainContract.Model
     }
 
     @Override
-    public void onGetWeatherButtonWasClicked(String units, String cityName, String key) {
-        mRepository.getWeatherDayNoticeArrayList(this, units, cityName, key);
-        mRepository.getWeatherForecastNoticeArrayList(this, units, cityName, key);
+    public void onGetWeatherButtonWasClicked(String cityName) {
+        mRepository.getWeatherDayNoticeArrayList(this,cityName);
+        mRepository.getWeatherForecastNoticeArrayList(this, cityName);
 
     }
 

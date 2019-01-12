@@ -71,18 +71,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getWeather() {
-        final String units = "metric";
         final String cityName = etPutCity.getText().toString();
-        final String key = WeatherAPI.KEY;
-        mPresenter.onGetWeatherButtonWasClicked(units, cityName, key);
+        mPresenter.onGetWeatherButtonWasClicked(cityName);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnGet:
-                itemInAdapterList.clear();
-                getWeather();
+                if (etPutCity.getText().length()!=0) {
+                    itemInAdapterList.clear();
+                    getWeather();
+                }
         }
     }
 

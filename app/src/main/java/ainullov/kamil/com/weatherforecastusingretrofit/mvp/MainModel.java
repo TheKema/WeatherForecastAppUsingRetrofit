@@ -23,11 +23,13 @@ public class MainModel implements MainContract.Model {
 
     WeatherAPI.ApiInterface api = WeatherAPI.getClient().create(WeatherAPI.ApiInterface.class);
 
-
     WeatherDay weatherDay = new WeatherDay();
 
+    final String units = "metric";
+    final String key = WeatherAPI.KEY;
+
     @Override
-    public void getWeatherDayNoticeArrayList(final OnFinishedListener onFinishedListener, String units, String cityName, String key) {
+    public void getWeatherDayNoticeArrayList(final OnFinishedListener onFinishedListener, String cityName) {
 
         Call<WeatherDay> callToday = api.getToday(cityName, units, key);
         callToday.enqueue(new Callback<WeatherDay>() {
@@ -51,7 +53,7 @@ public class MainModel implements MainContract.Model {
     }
 
     @Override
-    public void getWeatherForecastNoticeArrayList(final OnFinishedListener onFinishedListener, String units, String cityName, String key) {
+    public void getWeatherForecastNoticeArrayList(final OnFinishedListener onFinishedListener, String cityName) {
 
         Call<WeatherForecast> callForecast = api.getForecast(cityName, units, key);
         callForecast.enqueue(new Callback<WeatherForecast>() {
